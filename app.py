@@ -11,7 +11,9 @@ transactions = [
     {'id': 3, 'date': '2023-06-03', 'amount': 300}
 ]
 # Read operation
-
+@app.route('/')
+def get_transactions():
+    return render_template('transactions.html',transactions=transactions)
 # Create operation
 
 # Update operation
