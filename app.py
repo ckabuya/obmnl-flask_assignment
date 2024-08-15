@@ -13,7 +13,8 @@ transactions = [
 # Read operation
 @app.route('/')
 def get_transactions():
-    return render_template('transactions.html',transactions=transactions)
+    total=total_balance()
+    return render_template('transactions.html',transactions=transactions,total_balance=total)
 # Create operation: Display add transaction form
 # Route to handle the creation of a new transaction
 @app.route("/add", methods=["GET", "POST"])
@@ -92,6 +93,14 @@ def search_transactions():
         return render_template("transactions.html",transactions=filtered_transaction)
 
     return render_template("search.html")
+
+# Create Total Balance
+@app.route('/balance')
+def total_balance():
+    balance=0.0
+    for transaction in transactions:
+        balance = balance + transaction['amount']
+    return f"Total Balance:{balance}"
 
 # Run the Flask app
 if __name__ == "__main__":
